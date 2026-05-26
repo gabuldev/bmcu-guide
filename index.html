@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMCU-370C Guide — Bambu Lab A1 Mini</title>
+  <meta name="description" content="Complete guide to install and configure BMCU-370C on Bambu Lab A1 Mini" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">🎨 BMCU-370C Guide</div>
+    <div class="lang-switcher">
+      <button onclick="setLang('en')" id="btn-en">EN</button>
+      <button onclick="setLang('pt')" id="btn-pt">PT</button>
+      <button onclick="setLang('es')" id="btn-es">ES</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 data-i18n="hero_title"></h1>
+    <p data-i18n="hero_sub"></p>
+    <a href="#downloads" class="btn-primary" data-i18n="hero_cta"></a>
+  </section>
+
+  <!-- REQUIREMENTS -->
+  <section class="section" id="requirements">
+    <h2 data-i18n="req_title"></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🖨️</div>
+        <div class="card-text" data-i18n="req_printer"></div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <div class="card-text" data-i18n="req_os"></div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <div class="card-text" data-i18n="req_cable"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section class="section alt" id="downloads">
+    <h2 data-i18n="dl_title"></h2>
+    <p data-i18n="dl_sub"></p>
+
+    <div class="dl-grid">
+      <div class="dl-card recommended">
+        <div class="dl-badge" data-i18n="dl_recommended"></div>
+        <h3 data-i18n="dl_fw_title"></h3>
+        <p data-i18n="dl_fw_desc"></p>
+        <a href="https://github.com/jarczakpawel/BMCU-C-PJARCZAK/releases/download/V10.5/firmwares_v10.5.zip" class="btn-download" target="_blank">⬇ firmwares_v10.5.zip</a>
+        <p class="dl-note" data-i18n="dl_fw_note"></p>
+      </div>
+
+      <div class="dl-card">
+        <h3 data-i18n="dl_flasher_title"></h3>
+        <p data-i18n="dl_flasher_desc"></p>
+        <div class="platform-links">
+          <a href="https://drive.google.com/file/d/1wz_KmEx39-LzQ4b4C7TH8Obvt5-94va_/view" target="_blank">🍎 macOS (M1/M2/M3)</a>
+          <a href="https://drive.google.com/file/d/1DBUu1EutUUvbxZp8h1ioOR7RVtg5IJzW/view" target="_blank">🍎 macOS (Intel)</a>
+          <a href="https://drive.google.com/file/d/1BleYtjoYjKS1A7TkqY_YAByrbNcqZRf7/view" target="_blank">🪟 Windows x64</a>
+          <a href="https://drive.google.com/file/d/1dkB_NlP9AerWn65V9a1NMAn0bgZTaOs0/view" target="_blank">🪟 Windows (legacy)</a>
+          <a href="https://drive.google.com/file/d/1JqoWPywRWKPO5LzvKlr4YzwFx5K_VrHR/view" target="_blank">🐧 Linux x64</a>
+          <a href="https://drive.google.com/file/d/19Yhnb8NG26jSOpBBN_dQNLsJjjzwawmv/view" target="_blank">🤖 Android</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHICH FIRMWARE -->
+  <section class="section" id="which-firmware">
+    <h2 data-i18n="fw_choose_title"></h2>
+    <p data-i18n="fw_choose_sub"></p>
+
+    <div class="path-box">
+      <div class="path-step">
+        <span class="path-num">1</span>
+        <div>
+          <strong data-i18n="fw_step1_label"></strong>
+          <code>standard(A1)</code>
+          <small data-i18n="fw_step1_note"></small>
+        </div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step">
+        <span class="path-num">2</span>
+        <div>
+          <strong data-i18n="fw_step2_label"></strong>
+          <code>AUTOLOAD</code>
+          <small data-i18n="fw_step2_note"></small>
+        </div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step">
+        <span class="path-num">3</span>
+        <div>
+          <strong data-i18n="fw_step3_label"></strong>
+          <code>FILAMENT_RGB_OFF</code> <span data-i18n="fw_step3_or"></span> <code>FILAMENT_RGB_ON</code>
+          <small data-i18n="fw_step3_note"></small>
+        </div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step">
+        <span class="path-num">4</span>
+        <div>
+          <strong data-i18n="fw_step4_label"></strong>
+          <code>AMS_A</code>
+          <small data-i18n="fw_step4_note"></small>
+        </div>
+      </div>
+      <div class="path-arrow">↓</div>
+      <div class="path-step highlight">
+        <span class="path-num">✓</span>
+        <div>
+          <strong data-i18n="fw_step5_label"></strong>
+          <code>ams_a_0.15f.bin</code>
+          <small data-i18n="fw_step5_note"></small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLASH STEPS -->
+  <section class="section alt" id="flash">
+    <h2 data-i18n="flash_title"></h2>
+
+    <ol class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s1_title"></strong>
+          <p data-i18n="flash_s1_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s2_title"></strong>
+          <p data-i18n="flash_s2_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s3_title"></strong>
+          <p data-i18n="flash_s3_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s4_title"></strong>
+          <p data-i18n="flash_s4_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s5_title"></strong>
+          <p data-i18n="flash_s5_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <strong data-i18n="flash_s6_title"></strong>
+          <p data-i18n="flash_s6_desc"></p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>⚠️ <span data-i18n="flash_warning_title"></span></strong>
+      <p data-i18n="flash_warning_desc"></p>
+    </div>
+  </section>
+
+  <!-- PRINTER SETUP -->
+  <section class="section" id="printer-setup">
+    <h2 data-i18n="printer_title"></h2>
+    <ol class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong data-i18n="printer_s1_title"></strong>
+          <p data-i18n="printer_s1_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong data-i18n="printer_s2_title"></strong>
+          <p data-i18n="printer_s2_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong data-i18n="printer_s3_title"></strong>
+          <p data-i18n="printer_s3_desc"></p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="section alt" id="troubleshooting">
+    <h2 data-i18n="ts_title"></h2>
+
+    <div class="accordion">
+
+      <details>
+        <summary data-i18n="ts_1_q"></summary>
+        <p data-i18n="ts_1_a"></p>
+      </details>
+
+      <details>
+        <summary data-i18n="ts_2_q"></summary>
+        <p data-i18n="ts_2_a"></p>
+      </details>
+
+      <details>
+        <summary data-i18n="ts_3_q"></summary>
+        <p data-i18n="ts_3_a"></p>
+      </details>
+
+      <details>
+        <summary data-i18n="ts_4_q"></summary>
+        <p data-i18n="ts_4_a"></p>
+      </details>
+
+      <details>
+        <summary data-i18n="ts_5_q"></summary>
+        <p data-i18n="ts_5_a"></p>
+      </details>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p data-i18n="footer_text"></p>
+  <p><a href="https://github.com/gabuldev/bmcu-guide" target="_blank">GitHub</a> · <a href="https://github.com/jarczakpawel/BMCU-C-PJARCZAK" target="_blank">Firmware Source</a> · <a href="https://www.aliexpress.com/store/1102133270" target="_blank">BLV Store</a></p>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
