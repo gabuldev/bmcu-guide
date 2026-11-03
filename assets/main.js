@@ -1,6 +1,6 @@
 // Links que o Gabriel ainda vai criar. Vazio = mostra "em breve".
 const APP_LINKS = {
-  youtube: '',
+  youtube: 'https://www.youtube.com/watch?v=ErL0zz_ck88',
   whatsapp: '',
 };
 
