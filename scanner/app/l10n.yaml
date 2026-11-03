@@ -1,0 +1,7 @@
+# O template e o portugues: o app nasce em portugues, ingles e espanhol sao
+# traducoes dele.
+arb-dir: lib/l10n
+template-arb-file: app_pt.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+nullable-getter: false
