@@ -26,7 +26,88 @@
   <section class="hero">
     <h1 data-i18n="hero_title"></h1>
     <p data-i18n="hero_sub"></p>
-    <a href="#downloads" class="btn-primary" data-i18n="hero_cta"></a>
+    <div class="hero-actions">
+      <a href="#app" class="btn-primary btn-app" data-i18n="hero_app_cta"></a>
+      <a href="#downloads" class="btn-secondary" data-i18n="hero_cta"></a>
+    </div>
+  </section>
+
+  <!-- ANDROID APP -->
+  <section class="section alt" id="app">
+    <h2 data-i18n="app_title"></h2>
+    <p data-i18n="app_sub"></p>
+
+    <div class="app-download">
+      <a href="https://github.com/gabuldev/bmcu-guide/releases/latest/download/bmcu-scanner.apk" class="btn-apk" id="apk-link">
+        <span data-i18n="app_btn"></span>
+      </a>
+      <!-- Preenchido pelo main.js com a Release mais nova; este texto fica se a API do GitHub falhar. -->
+      <p class="app-version" id="app-version">v1.0.0 · 2026-11-03</p>
+      <p class="dl-note" data-i18n="app_no_login"></p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <div class="card-text" data-i18n="app_req_android"></div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <div class="card-text" data-i18n="app_req_otg"></div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧩</div>
+        <div class="card-text" data-i18n="app_req_board"></div>
+      </div>
+    </div>
+
+    <h3 class="sub-title" data-i18n="app_install_title"></h3>
+    <ol class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong data-i18n="app_i1_title"></strong>
+          <p data-i18n="app_i1_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong data-i18n="app_i2_title"></strong>
+          <p data-i18n="app_i2_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong data-i18n="app_i3_title"></strong>
+          <p data-i18n="app_i3_desc"></p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong data-i18n="app_i4_title"></strong>
+          <p data-i18n="app_i4_desc"></p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>⚠️ <span data-i18n="app_warn_title"></span></strong>
+      <p data-i18n="app_warn_desc"></p>
+    </div>
+
+    <div class="app-links">
+      <a class="app-link" id="link-youtube" target="_blank" rel="noopener">
+        <span>▶️</span> <span data-i18n="app_video"></span> <em class="soon" data-i18n="app_soon"></em>
+      </a>
+      <a class="app-link" id="link-whatsapp" target="_blank" rel="noopener">
+        <span>💬</span> <span data-i18n="app_community"></span> <em class="soon" data-i18n="app_soon"></em>
+      </a>
+    </div>
+
+    <p class="dl-note" data-i18n="app_credit"></p>
   </section>
 
   <!-- REQUIREMENTS -->

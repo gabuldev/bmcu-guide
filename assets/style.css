@@ -374,3 +374,44 @@ footer a:hover { text-decoration: underline; }
   .hero { padding: 50px 16px 40px; }
   .section, .section.alt { padding: 40px 16px; }
 }
+
+/* ANDROID APP */
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-secondary:hover { background: var(--border); }
+.app-download { text-align: center; margin: 24px auto 32px; }
+.btn-apk {
+  display: inline-block;
+  padding: 18px 40px;
+  background: var(--success);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  max-width: 100%;
+}
+.btn-apk:hover { filter: brightness(1.1); }
+.app-version { margin: 10px 0 4px; font-weight: 600; color: var(--text) !important; }
+.sub-title { margin: 32px auto 12px; font-size: 1.15rem; }
+.app-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px auto 16px; }
+.app-link {
+  flex: 1 1 220px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+}
+.app-link:hover { background: var(--bg); }
+.app-link.disabled { opacity: 0.6; pointer-events: none; }
+.app-link .soon { font-size: 0.8rem; color: var(--text-muted); margin-left: 4px; }
+#app > .dl-note { margin-left: auto; margin-right: auto; }
