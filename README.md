@@ -6,7 +6,7 @@ e diagnostica o BMCU pela rede da impressora Bambu Lab. Não precisa de PC.
 **[Baixar o APK](https://github.com/gabuldev/bmcu-guide/releases/latest/download/bmcu-scanner.apk)**
 · [Todas as versões](https://github.com/gabuldev/bmcu-guide/releases)
 
-> 🎥 Vídeo do passo a passo no canal Gabul: _link em breve_
+> 🎥 [Vídeo do passo a passo no canal Gabul](https://www.youtube.com/watch?v=ErL0zz_ck88)
 
 ## O que o app faz
 
