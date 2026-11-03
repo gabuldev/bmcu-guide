@@ -1,0 +1,151 @@
+{
+  "@@locale": "pt",
+  "appTitle": "BMCU Scanner",
+  "discoveryTitle": "Impressoras na rede",
+  "discoveryScanning": "Procurando impressoras Bambu na rede...",
+  "discoveryEmpty": "Nenhuma impressora encontrada. Confira se o PC/celular está na mesma rede que a impressora.",
+  "discoveryRescan": "Procurar de novo",
+  "discoveryFailed": "Não foi possível escutar a rede: {detail}",
+  "@discoveryFailed": {
+    "placeholders": {
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "discoveryCloudMode": "Modo nuvem — ative LAN Only + Developer Mode",
+  "discoveryLanMode": "LAN Only",
+  "discoveryAddManual": "Adicionar pelo IP",
+  "manualIp": "IP da impressora",
+  "manualSerial": "Número de série",
+  "accessCodeTitle": "Código de acesso",
+  "accessCodeHint": "Na tela da impressora: Configurações → WLAN / LAN Only.",
+  "accessCodeLabel": "Código (8 dígitos)",
+  "cancel": "Cancelar",
+  "scan": "Escanear",
+  "setupTitle": "Antes de escanear",
+  "setupSteps": "1. Na impressora, ligue LAN Only e Developer Mode.\n2. Reinicie a impressora depois de ligar.\n3. Anote o código de acesso que aparece na mesma tela.",
+  "reportTitle": "Diagnóstico",
+  "reportReading": "Lendo a impressora...",
+  "reportRetry": "Tentar de novo",
+  "failureBadCode": "Código de acesso recusado. Confira o código na tela da impressora.",
+  "failureUnreachable": "Não foi possível conectar na impressora. Ligue LAN Only + Developer Mode e reinicie a impressora.",
+  "failureNoStatus": "A impressora conectou mas não mandou o estado. Tente de novo.",
+  "noBmcu": "Nenhum BMCU encontrado nesta impressora.",
+  "bmcuTitle": "BMCU no AMS {letter}",
+  "@bmcuTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "bmcuUpToDate": "Firmware em dia ({version})",
+  "@bmcuUpToDate": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "bmcuOutdated": "{installed} instalado — {latest} disponível",
+  "@bmcuOutdated": {
+    "placeholders": {
+      "installed": {
+        "type": "String"
+      },
+      "latest": {
+        "type": "String"
+      }
+    }
+  },
+  "bmcuKnownBugs": "Problemas da sua versão que a atualização resolve:",
+  "bmcuUpdate": "Como atualizar",
+  "slotEmpty": "vazio",
+  "findingsTitle": "Alertas da impressora",
+  "findingsNone": "Nenhum alerta ativo.",
+  "findingExpected": "Esperado com BMCU",
+  "findingPossible": "Possível causa",
+  "findingGeneric": "Erro de AMS",
+  "findingUnknown": "Sem explicação para BMCU ainda",
+  "findingOfficial": "Texto da Bambu",
+  "severityInfo": "Informativo",
+  "severityWarning": "Atenção",
+  "severityBlocking": "Impede imprimir",
+  "findingSources": "Relatos:",
+  "bmcuFlashUsb": "Atualizar pelo USB",
+  "discoveryFlashUsb": "Gravar BMCU pelo USB",
+  "flashTitle": "Atualizar BMCU",
+  "flashIntro": "O app baixa o firmware {version} do projeto oficial, confere o arquivo e grava no BMCU pelo cabo USB.",
+  "@flashIntro": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "flashIntroNoVersion": "O app baixa o firmware mais recente do projeto oficial, confere o arquivo e grava no BMCU pelo cabo USB.",
+  "variantTitle": "Configuração do firmware",
+  "variantHint": "Escolha a mesma configuração que você usa hoje. O BMCU não informa qual foi gravada, então o app só lembra depois da primeira gravação por aqui.",
+  "variantFromLast": "Mesma configuração da última gravação feita por este aparelho.",
+  "forceLabel": "Força de carregamento",
+  "forceStandard": "Padrão (A1)",
+  "forceSoft": "Suave (A1)",
+  "forceHigh": "Forte (P1S/X1)",
+  "forceStandardHelp": "Para A1 e A1 mini com tubo PTFE curto e reto. Na dúvida, comece por aqui.",
+  "forceSoftHelp": "Só A1 e A1 mini: menos força, para quando o BMCU estala ou mói o filamento ao carregar. Pode causar recusa de carregamento.",
+  "forceHighHelp": "Para P1S e caminhos de PTFE longos ou com curvas, ou se o carregamento for recusado.",
+  "forceMismatch": "Esta impressora é {model}: o indicado é “{suggested}”.",
+  "@forceMismatch": {"placeholders": {"model": {"type": "String"}, "suggested": {"type": "String"}}},
+  "autoloadLabel": "AUTOLOAD",
+  "autoloadHelp": "Puxa o filamento sozinho ao encostar no BMCU. Funciona em qualquer BMCU-370C; sem ele, você empurra até aparecer no tubo.",
+  "rgbLabel": "LED na cor do filamento",
+  "rgbHelp": "O LED de cada canal acende na cor do filamento carregado.",
+  "slotLabel": "Número do AMS",
+  "slotAuto": "Automático (recomendado)",
+  "retractLabel": "Retração",
+  "retractHelp": "Distância do BMCU até o fim do divisor (splitter) dentro da impressora, com uma pequena folga. Ex.: 9 cm até o divisor → 9,5 cm.",
+  "retractMissing": "Escolha a retração para continuar.",
+  "safetyTitle": "Antes de ligar o cabo",
+  "safetySteps": "1. Desligue a impressora.\n2. Desconecte o BMCU da impressora.\n3. Ligue o BMCU neste aparelho com um cabo USB OTG.\n\nLigar ou desligar o cabo com a impressora ligada pode queimar o BMCU ou a placa da impressora.",
+  "safetyConfirm": "A impressora está desligada e o BMCU está ligado só neste aparelho.",
+  "flashStart": "Gravar {version}",
+  "@flashStart": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "flashStartNoVersion": "Gravar firmware",
+  "stageDownloading": "Baixando o firmware...",
+  "stageConnecting": "Entrando no modo de gravação...",
+  "stageUnlocking": "Liberando a gravação...",
+  "stageErasing": "Apagando o firmware antigo...",
+  "stageWriting": "Gravando...",
+  "stageVerifying": "Conferindo...",
+  "flashDontUnplug": "Não desconecte o cabo nem saia desta tela.",
+  "flashDone": "BMCU atualizado para {version}",
+  "@flashDone": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "flashDoneNoVersion": "BMCU atualizado",
+  "flashDoneSteps": "1. Desconecte o BMCU deste aparelho e ligue-o na impressora desligada.\n2. Na primeira atualização por este app, a calibração dos buffers costuma ser apagada (o chip vinha protegido). Nas próximas, ela deve ser mantida.\n3. Se os LEDs ficarem vermelhos, os buffers precisam ser calibrados: abra o diagnóstico, ele mostra como.\n\nDepois, escaneie de novo para confirmar a versão.",
+  "flashBack": "Voltar",
+  "flashFailDownload": "Não foi possível baixar o firmware. Confira a internet e tente de novo.",
+  "flashFailNoDevice": "Nenhum BMCU encontrado no USB. Confira o cabo OTG e se o BMCU acendeu.",
+  "flashFailPermission": "O Android não deu permissão para usar o USB. Tente de novo e toque em Permitir.",
+  "flashFailFlash": "A gravação parou no meio. O modo de gravação do BMCU não se apaga, então é só tentar de novo; até lá ele fica sem firmware.",
+  "flashDetails": "Detalhes",
+  "reportChangeCode": "Trocar código de acesso",
+  "bmcuFreshTitle": "LEDs vermelhos? Calibre os buffers",
+  "bmcuFreshSteps": "Os 4 slots estão com o filamento padrão do firmware, sinal de que a memória do BMCU foi apagada (o BMCU Flasher apaga tudo ao gravar). Isso apaga a calibração dos buffers: até calibrar, os LEDs ficam vermelhos e os motores não giram. Sem calibração salva, o BMCU calibra sozinho ao ligar, mas só se não tiver filamento em nenhum canal.\n\n1. Tire o filamento de todos os canais (passando do sensor do BMCU). Confira se não ficou um pedaço quebrado lá dentro.\n2. Desligue e ligue a impressora sem encostar nos buffers.\n3. Os LEDs piscam amarelo por ~1 s lendo o repouso. Se piscarem vermelho duas vezes, ainda tem filamento ou um buffer mexeu: confira e reinicie.\n4. Quando o LED do canal piscar azul, empurre o buffer até o fim por 1 s e solte.\n5. Quando piscar vermelho, puxe até o fim por 1 s e solte.\n6. Repita nos outros canais (30 s por passo) e deixe tudo solto: duas piscadas verdes indicam que salvou.",
+  "testFirmwareTitle": "Firmware de teste",
+  "testFirmwareBody": "Achei um arquivo de teste na pasta do app ({size} bytes, sha256 {sha}). É um build experimental, fora das versões publicadas.",
+  "testFirmwareStart": "Gravar arquivo de teste",
+  "@testFirmwareBody": {"placeholders": {"size": {"type": "int"}, "sha": {"type": "String"}}}
+}
