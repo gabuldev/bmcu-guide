@@ -1,0 +1,562 @@
+{
+  "schema": 1,
+  "about": "Hand-written source for data/hms-bmcu.json. Run scripts/build_hms.py to validate patterns against Bambu's official HMS list and attach the official texts.",
+  "pattern_syntax": "Hex ecodes as reported by the printer (16 chars for HMS, 8 chars for device errors). '?' matches one hex digit. In 07xx/05xx codes the 4th char is the AMS unit (0=A..3=D); in 070?2?.. codes the 6th char is the slot (0=slot 1..3=slot 4).",
+  "bmcu_version": {
+    "note": "MQTT get_version lists BMCU as module ams/N with hw_ver AMS08 and serial starting with 0ea. sw_ver comes from 4 bytes BMCU sends; the printer shows them reversed. V10+ encodes major.minor*10 (10.50.00.00 = V10.5, 11.00.00.00 = V11). V6-V9 sent major*10 in the first field (90.00.00.00 = V9). Versions in this file are normalized as major.minor (10.5, 11.0).",
+    "legacy_first_field": { "60": "V6", "70": "V7/V8", "90": "V9" },
+    "latest": "11.0",
+    "latest_label": "v11",
+    "latest_url": "https://github.com/jarczakpawel/BMCU-C-PJARCZAK/releases/latest"
+  },
+  "problems": [
+    {
+      "id": "ams-firmware-mismatch-warning",
+      "category": "expected",
+      "severity": "info",
+      "codes": ["050?040000010044", "050?050000010010"],
+      "printers": ["A1", "A1 mini", "P1S"],
+      "sources": [22, 37, 64, 71, 132],
+      "text": {
+        "pt-BR": {
+          "title": "Aviso de firmware do AMS incompatível",
+          "meaning": "Esperado com BMCU. A impressora percebe que o \"AMS\" não é um aparelho original da Bambu e mostra este aviso. Não é defeito, e atualizar o firmware não faz o aviso sumir.",
+          "steps": ["Pode ignorar: a impressão funciona normalmente.", "Confirme que a impressora está configurada como AMS (não AMS Lite).", "Com BMCU V10.5 ou mais novo, a luz de status da impressora para de piscar."]
+        },
+        "en": {
+          "title": "AMS firmware mismatch warning",
+          "meaning": "Expected with BMCU. The printer notices the \"AMS\" is not a genuine Bambu device and shows this warning. It is not a fault, and updating firmware will not clear it.",
+          "steps": ["You can ignore it: printing works normally.", "Make sure the printer is set to AMS (not AMS Lite).", "On BMCU V10.5 or newer the printer status light stops blinking."]
+        },
+        "es": {
+          "title": "Aviso de firmware del AMS incompatible",
+          "meaning": "Esperado con BMCU. La impresora detecta que el \"AMS\" no es un dispositivo original de Bambu y muestra este aviso. No es una avería y actualizar el firmware no lo elimina.",
+          "steps": ["Puedes ignorarlo: la impresión funciona con normalidad.", "Comprueba que la impresora está configurada como AMS (no AMS Lite).", "Con BMCU V10.5 o más reciente, la luz de estado deja de parpadear."]
+        }
+      }
+    },
+    {
+      "id": "a1-0108-print-start-abort",
+      "category": "expected",
+      "severity": "blocking",
+      "codes": ["050?409D"],
+      "printers": ["A1 >= 01.08.00.00", "A1 mini >= 01.08.00.00"],
+      "sources": [71, 73, 78, 87, 97, 100, 119, 132, 160],
+      "text": {
+        "pt-BR": {
+          "title": "Impressão cancelada no início (A1 com firmware 01.08)",
+          "meaning": "A partir do firmware 01.08 das A1/A1 mini, a impressora faz uma checagem de compatibilidade no início da impressão e às vezes recusa o BMCU. É uma trava da impressora, não defeito do BMCU.",
+          "steps": ["Feche o erro na tela da impressora (fechar só no Bambu Studio pode não bastar) e reenvie a impressão.", "Use o OrcaStudio (fork do mantenedor do BMCU), que ignora esse erro e reenvia sozinho.", "Alternativa: voltar a impressora para o firmware 01.07.02.00 e não atualizar."]
+        },
+        "en": {
+          "title": "Print aborted at start (A1 on firmware 01.08)",
+          "meaning": "Since A1/A1 mini firmware 01.08 the printer runs a compatibility check at print start and sometimes rejects BMCU. It is a printer-side lock, not a BMCU fault.",
+          "steps": ["Dismiss the error on the printer screen (dismissing only in Bambu Studio may not be enough) and resend the print.", "Use OrcaStudio (the BMCU maintainer's fork), which ignores this error and retries automatically.", "Alternative: downgrade the printer to 01.07.02.00 and keep it there."]
+        },
+        "es": {
+          "title": "Impresión cancelada al inicio (A1 con firmware 01.08)",
+          "meaning": "Desde el firmware 01.08 de las A1/A1 mini, la impresora hace una comprobación de compatibilidad al iniciar y a veces rechaza el BMCU. Es un bloqueo de la impresora, no una avería del BMCU.",
+          "steps": ["Cierra el error en la pantalla de la impresora (cerrarlo solo en Bambu Studio puede no bastar) y reenvía la impresión.", "Usa OrcaStudio (fork del mantenedor del BMCU), que ignora este error y reintenta solo.", "Alternativa: volver la impresora al firmware 01.07.02.00 y no actualizar."]
+        }
+      }
+    },
+    {
+      "id": "ams-certification-failed",
+      "category": "expected",
+      "severity": "blocking",
+      "codes": ["050?050000010014"],
+      "printers": ["P2S"],
+      "sources": [54],
+      "text": {
+        "pt-BR": {
+          "title": "Falha na certificação do AMS",
+          "meaning": "A impressora pediu o certificado da Bambu e o BMCU não tem como apresentar. Nenhuma atualização do BMCU resolve isso.",
+          "steps": ["Reinicie a impressora antes de cada impressão.", "Na P2S, só o firmware 01.01.03.00 ou anterior ainda permite imprimir (a primeira impressão após ligar)."]
+        },
+        "en": {
+          "title": "AMS certification failed",
+          "meaning": "The printer asked for a Bambu certificate and BMCU cannot provide one. No BMCU update can fix this.",
+          "steps": ["Restart the printer before each print.", "On P2S only firmware 01.01.03.00 or older still allows printing (the first print after power-on)."]
+        },
+        "es": {
+          "title": "Falló la certificación del AMS",
+          "meaning": "La impresora pidió el certificado de Bambu y el BMCU no puede presentarlo. Ninguna actualización del BMCU lo resuelve.",
+          "steps": ["Reinicia la impresora antes de cada impresión.", "En la P2S solo el firmware 01.01.03.00 o anterior permite imprimir (la primera impresión tras encenderla)."]
+        }
+      }
+    },
+    {
+      "id": "ams-not-detected-after-first-print",
+      "category": "expected",
+      "severity": "blocking",
+      "codes": ["050?4098"],
+      "printers": ["P2S <= 01.01.03.00", "P1S/P1P >= 01.08.02.00", "X1/X1C >= 01.08.03.00"],
+      "sources": [17, 42, 64, 85, 104, 151, 160],
+      "text": {
+        "pt-BR": {
+          "title": "BMCU some depois da primeira impressão",
+          "meaning": "Nos firmwares com a trava de autorização da Bambu, a primeira impressão funciona (pelo tempo que for), mas depois a impressora desconecta o BMCU.",
+          "steps": ["Reinicie a impressora antes de cada nova impressão.", "Sem desligar a impressora: um interruptor que corta SigA e SigB ao mesmo tempo faz o BMCU reconectar.", "Comece a impressão logo depois de ligar a impressora.", "Alternativa: P1S/P1P até 01.08.01.00, X1/X1C até 01.08.02.00."]
+        },
+        "en": {
+          "title": "BMCU drops after the first print",
+          "meaning": "On firmware with Bambu's authorization lock, the first print works (for any length of time), then the printer disconnects BMCU.",
+          "steps": ["Restart the printer before each new print.", "Without powering off: a switch that cuts SigA and SigB at the same time makes BMCU reconnect.", "Start the print right after powering on the printer.", "Alternative: P1S/P1P up to 01.08.01.00, X1/X1C up to 01.08.02.00."]
+        },
+        "es": {
+          "title": "El BMCU desaparece tras la primera impresión",
+          "meaning": "En firmwares con el bloqueo de autorización de Bambu, la primera impresión funciona (dure lo que dure), pero después la impresora desconecta el BMCU.",
+          "steps": ["Reinicia la impresora antes de cada impresión.", "Sin apagarla: un interruptor que corte SigA y SigB a la vez hace que el BMCU se reconecte.", "Empieza la impresión justo después de encender la impresora.", "Alternativa: P1S/P1P hasta 01.08.01.00, X1/X1C hasta 01.08.02.00."]
+        }
+      }
+    },
+    {
+      "id": "stuck-preparing-ams",
+      "category": "expected",
+      "severity": "blocking",
+      "codes": [],
+      "printers": ["P2S >= 01.02.00.00", "H2D >= 01.03.00.00", "H2S", "X2D >= 01.01.00.00", "A2L"],
+      "sources": [72, 80, 98, 106, 151, 158],
+      "text": {
+        "pt-BR": {
+          "title": "Travado em \"Preparando AMS\"",
+          "meaning": "Nas impressoras de segunda geração com firmware novo, o BMCU é detectado e carrega/descarrega filamento, mas a impressão nunca começa porque a autorização da Bambu é exigida antes. A A2L não funciona com BMCU em nenhuma versão.",
+          "steps": ["Não há correção pelo BMCU.", "Única saída: firmware antigo da impressora (P2S até 01.01.03.00, H2D até 01.02.00.00).", "X2D: não atualize se quiser usar BMCU — não há como voltar a versão."]
+        },
+        "en": {
+          "title": "Stuck at \"Preparing AMS\"",
+          "meaning": "On second-generation printers with new firmware, BMCU is detected and can load/unload, but the print never starts because Bambu authorization is required first. A2L does not work with BMCU on any version.",
+          "steps": ["There is no BMCU-side fix.", "Only option: older printer firmware (P2S up to 01.01.03.00, H2D up to 01.02.00.00).", "X2D: do not update if you want BMCU — there is no way to downgrade."]
+        },
+        "es": {
+          "title": "Atascado en \"Preparando AMS\"",
+          "meaning": "En impresoras de segunda generación con firmware nuevo, el BMCU se detecta y carga/descarga filamento, pero la impresión nunca empieza porque antes se exige la autorización de Bambu. La A2L no funciona con BMCU en ninguna versión.",
+          "steps": ["No hay solución desde el BMCU.", "Única opción: firmware antiguo de la impresora (P2S hasta 01.01.03.00, H2D hasta 01.02.00.00).", "X2D: no actualices si quieres usar el BMCU; no se puede volver atrás."]
+        }
+      }
+    },
+    {
+      "id": "ams-communication-error",
+      "category": "communication",
+      "severity": "warning",
+      "codes": ["0500040000010049", "050040C0"],
+      "printers": ["X1C 01.09-01.11", "all"],
+      "sources": [126, 141],
+      "text": {
+        "pt-BR": {
+          "title": "Erro de comunicação com o AMS",
+          "meaning": "A impressora perdeu contato com o BMCU pelo cabo. Pode ser cabo ou conector, ou (no X1C com firmware 01.09 a 01.11) a própria trava da impressora.",
+          "steps": ["Desligue a impressora da tomada, confira o cabo de 4 pinos nas duas pontas e ligue de novo.", "Nunca conecte ou desconecte o BMCU com a impressora ligada.", "Se acontecer sempre depois de um tempo parado no X1C, é a limitação do firmware: só reiniciando."]
+        },
+        "en": {
+          "title": "AMS communication error",
+          "meaning": "The printer lost contact with BMCU over the cable. It can be the cable or connector, or (on X1C firmware 01.09 to 01.11) the printer's own lock.",
+          "steps": ["Unplug the printer, check the 4-pin cable at both ends and power it back on.", "Never connect or disconnect BMCU while the printer is powered.", "If it always happens after idling on X1C, it is the firmware limitation: only a restart helps."]
+        },
+        "es": {
+          "title": "Error de comunicación con el AMS",
+          "meaning": "La impresora perdió contacto con el BMCU por el cable. Puede ser el cable o el conector, o (en la X1C con firmware 01.09 a 01.11) el propio bloqueo de la impresora.",
+          "steps": ["Desenchufa la impresora, revisa el cable de 4 pines en ambos extremos y vuelve a encenderla.", "Nunca conectes ni desconectes el BMCU con la impresora encendida.", "Si en la X1C ocurre siempre tras un rato inactiva, es la limitación del firmware: solo ayuda reiniciar."]
+        }
+      }
+    },
+    {
+      "id": "printer-set-as-ams-lite",
+      "category": "config",
+      "severity": "blocking",
+      "codes": [],
+      "printers": ["A1", "A1 mini"],
+      "sources": [11, 22, 133, 166],
+      "text": {
+        "pt-BR": {
+          "title": "Impressora configurada como AMS Lite",
+          "meaning": "O BMCU se apresenta como AMS (1ª geração). Se a impressora estiver em AMS Lite, ele não é detectado, fica aparecendo e sumindo, ou surge o aviso de versão de AMS errada.",
+          "steps": ["Na impressora: Configurações → tipo de AMS → AMS (não AMS Lite).", "AMS Lite e BMCU não funcionam juntos."]
+        },
+        "en": {
+          "title": "Printer set to AMS Lite",
+          "meaning": "BMCU presents itself as an AMS (1st gen). If the printer is set to AMS Lite, BMCU is not detected, flickers in and out, or a wrong-AMS-version warning appears.",
+          "steps": ["On the printer: Settings → AMS type → AMS (not AMS Lite).", "AMS Lite and BMCU cannot be used together."]
+        },
+        "es": {
+          "title": "Impresora configurada como AMS Lite",
+          "meaning": "El BMCU se presenta como AMS (1.ª generación). Si la impresora está en AMS Lite, no se detecta, aparece y desaparece o surge un aviso de versión de AMS incorrecta.",
+          "steps": ["En la impresora: Ajustes → tipo de AMS → AMS (no AMS Lite).", "AMS Lite y BMCU no funcionan juntos."]
+        }
+      }
+    },
+    {
+      "id": "buffer-calibration",
+      "category": "calibration",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["all"],
+      "sources": [2, 16, 24, 36, 43, 75, 84, 90, 111, 158, 165, 171, 173, 174],
+      "text": {
+        "pt-BR": {
+          "title": "Calibração do buffer errada ou incompleta",
+          "meaning": "O problema mais comum. Sintomas: motor continua empurrando depois que a extrusora pega o filamento, filamento recusado e recolhido, LEDs vermelhos, carregamento automático que não funciona.",
+          "steps": ["Tire TODO o filamento, inclusive das entradas.", "Segure qualquer buffer por ~5 s e não mexa em nada até o LED piscar.", "LED azul piscando: empurre o buffer até o fim, segure ~1 s e solte.", "LED vermelho piscando: puxe o buffer até o fim, segure ~1 s e solte.", "Repita em todos os canais e depois desligue e ligue."]
+        },
+        "en": {
+          "title": "Wrong or incomplete buffer calibration",
+          "meaning": "The most common problem. Symptoms: motor keeps pushing after the extruder grabs the filament, filament rejected and retracted, red LEDs, autoload not working.",
+          "steps": ["Remove ALL filament, including from the inputs.", "Hold any buffer for ~5 s and touch nothing until the LED blinks.", "Blue blinking: push the buffer all the way in, hold ~1 s, release.", "Red blinking: pull the buffer all the way out, hold ~1 s, release.", "Repeat for every channel, then power cycle."]
+        },
+        "es": {
+          "title": "Calibración del buffer incorrecta o incompleta",
+          "meaning": "El problema más común. Síntomas: el motor sigue empujando cuando el extrusor ya agarró el filamento, filamento rechazado y retraído, LEDs rojos, carga automática que no funciona.",
+          "steps": ["Saca TODO el filamento, también de las entradas.", "Mantén cualquier buffer ~5 s y no toques nada hasta que el LED parpadee.", "LED azul parpadeando: empuja el buffer hasta el fondo, mantén ~1 s y suelta.", "LED rojo parpadeando: tira del buffer hasta el final, mantén ~1 s y suelta.", "Repite en todos los canales y después apaga y enciende."]
+        }
+      }
+    },
+    {
+      "id": "slots-always-loaded",
+      "category": "calibration",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["all"],
+      "bmcu_fixed_in": "10.3",
+      "sources": [10, 11, 32, 49, 77, 158],
+      "text": {
+        "pt-BR": {
+          "title": "Slots aparecem com filamento mesmo vazios",
+          "meaning": "Placas clones medem o sensor de filamento de outro jeito. Desde a V10.3 o BMCU aprende o valor de \"vazio\" na calibração — se você gravou ou calibrou com filamento colocado, ele aprendeu errado.",
+          "steps": ["Atualize para V10.3 ou mais novo.", "Grave o firmware e calibre com todos os canais vazios."]
+        },
+        "en": {
+          "title": "Slots show filament even when empty",
+          "meaning": "Clone boards read the filament sensor differently. Since V10.3 BMCU learns the \"empty\" value during calibration — if you flashed or calibrated with filament inserted, it learned it wrong.",
+          "steps": ["Update to V10.3 or newer.", "Flash and calibrate with every channel empty."]
+        },
+        "es": {
+          "title": "Los slots aparecen con filamento aunque estén vacíos",
+          "meaning": "Las placas clon leen el sensor de filamento de otra forma. Desde la V10.3 el BMCU aprende el valor de \"vacío\" en la calibración; si grabaste o calibraste con filamento puesto, lo aprendió mal.",
+          "steps": ["Actualiza a V10.3 o más reciente.", "Graba el firmware y calibra con todos los canales vacíos."]
+        }
+      }
+    },
+    {
+      "id": "load-rejected-ptfe-breakage",
+      "category": "feeding",
+      "severity": "warning",
+      "codes": ["070?2?0000020006"],
+      "printers": ["A1", "A1 mini"],
+      "bmcu_fixed_in": "9.0",
+      "sources": [19],
+      "text": {
+        "pt-BR": {
+          "title": "\"Quebra do tubo de PTFE\" ao carregar",
+          "meaning": "Com BMCU, normalmente o tubo não está quebrado: falta pressão do filamento no sensor da impressora (filamento áspero, PTFE longo ou gasto) e ela perde o filamento por um instante.",
+          "steps": ["Atualize o BMCU (corrigido a partir da V9).", "Use tubos de PTFE curtos, retos e lisos.", "Em P1/X1, use a versão high_force_load."]
+        },
+        "en": {
+          "title": "\"PTFE tube breakage\" while loading",
+          "meaning": "With BMCU the tube is usually not broken: there is too little filament pressure at the printer's sensor (rough filament, long or worn PTFE) and it loses the filament for a moment.",
+          "steps": ["Update BMCU (fixed from V9).", "Use short, straight, smooth PTFE tubes.", "On P1/X1 use the high_force_load build."]
+        },
+        "es": {
+          "title": "\"Rotura del tubo de PTFE\" al cargar",
+          "meaning": "Con BMCU normalmente el tubo no está roto: falta presión del filamento en el sensor de la impresora (filamento áspero, PTFE largo o gastado) y lo pierde por un instante.",
+          "steps": ["Actualiza el BMCU (corregido desde la V9).", "Usa tubos de PTFE cortos, rectos y lisos.", "En P1/X1 usa la versión high_force_load."]
+        }
+      }
+    },
+    {
+      "id": "load-retract-loop-overloaded",
+      "category": "feeding",
+      "severity": "warning",
+      "codes": [],
+      "possible_codes": ["070?6?0000020001", "070?8010"],
+      "printers": ["P1S", "P1P", "A1", "A1 mini"],
+      "sources": [7, 15, 16, 38, 50, 117, 157],
+      "text": {
+        "pt-BR": {
+          "title": "Filamento vai e volta / AMS sobrecarregado",
+          "meaning": "Atrito demais no caminho do PTFE (curvas fechadas, divisores perto dos buffers, hubs de 5 vias, tubos longos). A impressora precisa de pressão firme no sensor dela.",
+          "steps": ["Teste com um único tubo reto, sem divisor.", "Use PTFE curto e liso (na P1S, ID 3 / OD 4).", "Em P1/P2/X1, grave a versão high_force_load.", "Na P1S, retração em torno de 60–80 cm."]
+        },
+        "en": {
+          "title": "Filament goes back and forth / AMS overloaded",
+          "meaning": "Too much friction in the PTFE path (tight bends, splitters close to the buffers, 5-way hubs, long tubes). The printer needs firm pressure on its sensor.",
+          "steps": ["Test with a single straight tube and no splitter.", "Use short, smooth PTFE (on P1S, ID 3 / OD 4).", "On P1/P2/X1 flash the high_force_load build.", "On P1S, retraction around 60–80 cm."]
+        },
+        "es": {
+          "title": "El filamento va y vuelve / AMS sobrecargado",
+          "meaning": "Demasiada fricción en el recorrido del PTFE (curvas cerradas, divisores cerca de los buffers, hubs de 5 vías, tubos largos). La impresora necesita presión firme en su sensor.",
+          "steps": ["Prueba con un solo tubo recto y sin divisor.", "Usa PTFE corto y liso (en la P1S, ID 3 / OD 4).", "En P1/P2/X1 graba la versión high_force_load.", "En la P1S, retracción de unos 60–80 cm."]
+        }
+      }
+    },
+    {
+      "id": "single-slot-no-feed",
+      "category": "hardware",
+      "severity": "warning",
+      "codes": ["070?8006"],
+      "printers": ["all"],
+      "sources": [41, 164],
+      "text": {
+        "pt-BR": {
+          "title": "Um slot não alimenta a extrusora",
+          "meaning": "Se só um canal falha e os outros funcionam, o problema costuma ser físico naquele módulo, não no firmware.",
+          "steps": ["Troque os módulos de lugar para ver se o defeito acompanha o módulo.", "Confira ímã, engrenagens, mola e PTFE daquele canal."]
+        },
+        "en": {
+          "title": "One slot won't feed the extruder",
+          "meaning": "If only one channel fails and the others work, the problem is usually physical in that module, not firmware.",
+          "steps": ["Swap modules to see whether the fault follows the module.", "Check the magnet, gears, spring and PTFE of that channel."]
+        },
+        "es": {
+          "title": "Un slot no alimenta el extrusor",
+          "meaning": "Si solo falla un canal y los demás funcionan, el problema suele ser físico en ese módulo, no del firmware.",
+          "steps": ["Intercambia los módulos para ver si el fallo sigue al módulo.", "Revisa imán, engranajes, muelle y PTFE de ese canal."]
+        }
+      }
+    },
+    {
+      "id": "unload-fails",
+      "category": "feeding",
+      "severity": "warning",
+      "codes": ["070?8003"],
+      "printers": ["A1", "A1 mini", "P2S"],
+      "bmcu_fixed_in": "11.0",
+      "sources": [54, 112, 125],
+      "text": {
+        "pt-BR": {
+          "title": "Falha ao retirar o filamento da extrusora",
+          "meaning": "O descarregamento não termina ou a distância de retração varia. A v11 refez o controle de distância; o mantenedor pediu para retestar nela.",
+          "steps": ["Atualize para a v11.", "Para destravar: puxe o filamento todo para fora do BMCU até o slot aparecer vazio."]
+        },
+        "en": {
+          "title": "Failed to pull filament out of the extruder",
+          "meaning": "Unloading does not finish or the retraction distance varies. v11 reworked distance tracking; the maintainer asked users to retest on it.",
+          "steps": ["Update to v11.", "To unstick: pull the filament fully out of BMCU until the slot shows empty."]
+        },
+        "es": {
+          "title": "No se pudo sacar el filamento del extrusor",
+          "meaning": "La descarga no termina o la distancia de retracción varía. La v11 rehízo el control de distancia; el mantenedor pidió volver a probar con ella.",
+          "steps": ["Actualiza a la v11.", "Para desbloquear: saca todo el filamento del BMCU hasta que el slot aparezca vacío."]
+        }
+      }
+    },
+    {
+      "id": "p1s-toolchange-no-retract",
+      "category": "firmware-bug",
+      "severity": "warning",
+      "codes": ["07FF200000020004"],
+      "printers": ["P1S"],
+      "bmcu_affected": ["10.4", "10.5"],
+      "bmcu_fixed_in": "11.0",
+      "sources": [128],
+      "text": {
+        "pt-BR": {
+          "title": "P1S: troca de cor não recolhe o filamento",
+          "meaning": "A impressora corta e recolhe, mas o BMCU não puxa o filamento de volta. Bug introduzido na V10.4 (relatado por usuário).",
+          "steps": ["Atualize para a v11 ou volte para a V10.3."]
+        },
+        "en": {
+          "title": "P1S: color change doesn't retract filament",
+          "meaning": "The printer cuts and retracts, but BMCU does not pull the filament back. Bug introduced in V10.4 (user report).",
+          "steps": ["Update to v11 or go back to V10.3."]
+        },
+        "es": {
+          "title": "P1S: el cambio de color no retrae el filamento",
+          "meaning": "La impresora corta y retrae, pero el BMCU no recoge el filamento. Fallo introducido en la V10.4 (informado por un usuario).",
+          "steps": ["Actualiza a la v11 o vuelve a la V10.3."]
+        }
+      }
+    },
+    {
+      "id": "filament-info-reverts",
+      "category": "firmware-bug",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["A1", "A1 mini", "P1S", "X1C"],
+      "bmcu_affected": ["10.3", "10.4", "10.5"],
+      "bmcu_fixed_in": "11.0",
+      "sources": [65, 66, 68, 89, 97, 104, 126],
+      "text": {
+        "pt-BR": {
+          "title": "Cor/tipo do filamento volta para PETG branco",
+          "meaning": "Você define o filamento e segundos depois ele volta ao padrão. Bug das versões V10.3 a V10.5.",
+          "steps": ["Atualize para a v11.", "Grave com o BMCU Flasher 1.3 ou mais novo (apaga a memória inteira) e recalibre com os canais vazios."]
+        },
+        "en": {
+          "title": "Filament color/type reverts to white PETG",
+          "meaning": "You set the filament and seconds later it goes back to the default. Bug in V10.3 to V10.5.",
+          "steps": ["Update to v11.", "Flash with BMCU Flasher 1.3 or newer (full erase) and recalibrate with empty channels."]
+        },
+        "es": {
+          "title": "El color/tipo de filamento vuelve a PETG blanco",
+          "meaning": "Configuras el filamento y segundos después vuelve al valor por defecto. Fallo de las versiones V10.3 a V10.5.",
+          "steps": ["Actualiza a la v11.", "Graba con BMCU Flasher 1.3 o más reciente (borra toda la memoria) y recalibra con los canales vacíos."]
+        }
+      }
+    },
+    {
+      "id": "grinding-after-extruder",
+      "category": "hardware",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["all"],
+      "sources": [25, 29, 35, 38, 43, 64, 111],
+      "text": {
+        "pt-BR": {
+          "title": "Motor rangendo depois que o filamento chega na extrusora",
+          "meaning": "Barulho ou filamento mastigado por 5–15 s. Normalmente a mola da alavanca é fraca demais (molas baratas dos kits).",
+          "steps": ["Troque a mola da alavanca por uma mais dura: 0,6 × 4 × 10 mm (fio × diâmetro × comprimento).", "Limpe as engrenagens.", "Ou grave a versão soft_load."]
+        },
+        "en": {
+          "title": "Motor grinding after filament reaches the extruder",
+          "meaning": "Noise or chewed filament for 5–15 s. Usually the lever spring is too weak (cheap kit springs).",
+          "steps": ["Replace the lever spring with a stiffer one: 0.6 × 4 × 10 mm (wire × OD × length).", "Clean the gears.", "Or flash the soft_load build."]
+        },
+        "es": {
+          "title": "El motor rechina cuando el filamento llega al extrusor",
+          "meaning": "Ruido o filamento mordido durante 5–15 s. Normalmente el muelle de la palanca es demasiado débil (muelles baratos de los kits).",
+          "steps": ["Cambia el muelle de la palanca por uno más duro: 0,6 × 4 × 10 mm (hilo × diámetro × longitud).", "Limpia los engranajes.", "O graba la versión soft_load."]
+        }
+      }
+    },
+    {
+      "id": "magnet-rubbing",
+      "category": "hardware",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["all"],
+      "sources": [16, 40, 88, 111, 118, 150],
+      "text": {
+        "pt-BR": {
+          "title": "Retração inconsistente entre canais",
+          "meaning": "Um canal recolhe mais ou menos que os outros, ou o carregamento automático puxa o filamento até o fim. Quase sempre o ímã do sensor (AS5600) está raspando e perdendo a contagem.",
+          "steps": ["Abra o módulo e confirme que o ímã gira livre.", "Afaste o eixo do BMG da placa ou vire o ímã.", "Afrouxar um pouco a tampa às vezes resolve."]
+        },
+        "en": {
+          "title": "Inconsistent retraction between channels",
+          "meaning": "One channel retracts more or less than the others, or autoload pulls the filament all the way through. Almost always the sensor magnet (AS5600) is rubbing and losing count.",
+          "steps": ["Open the module and make sure the magnet spins freely.", "Move the BMG shaft away from the board or flip the magnet.", "Loosening the cover slightly sometimes helps."]
+        },
+        "es": {
+          "title": "Retracción desigual entre canales",
+          "meaning": "Un canal retrae más o menos que los otros, o la carga automática tira del filamento hasta el final. Casi siempre el imán del sensor (AS5600) roza y pierde la cuenta.",
+          "steps": ["Abre el módulo y comprueba que el imán gira libre.", "Aleja el eje del BMG de la placa o da la vuelta al imán.", "Aflojar un poco la tapa a veces ayuda."]
+        }
+      }
+    },
+    {
+      "id": "false-tangle-pause",
+      "category": "feeding",
+      "severity": "warning",
+      "codes": [],
+      "printers": ["A1", "A1 mini"],
+      "sources": [55, 127, 139],
+      "text": {
+        "pt-BR": {
+          "title": "Pausa por \"filamento embolado\" e Continuar não funciona",
+          "meaning": "O BMCU detectou travamento e o LED do canal fica vermelho. Essa trava só sai tirando o filamento — o botão Continuar da impressora não avisa o BMCU.",
+          "steps": ["Puxe o filamento do slot até ele aparecer vazio, coloque de novo e então continue.", "Ou desligue e ligue.", "Atualize para a v11 (detecção refeita)."]
+        },
+        "en": {
+          "title": "\"Tangled filament\" pause and Resume does nothing",
+          "meaning": "BMCU detected a jam and the channel LED stays red. This latch only clears by removing the filament — the printer's Resume button doesn't tell BMCU anything.",
+          "steps": ["Pull the filament out until the slot shows empty, reinsert it, then resume.", "Or power cycle.", "Update to v11 (detection reworked)."]
+        },
+        "es": {
+          "title": "Pausa por \"filamento enredado\" y Continuar no hace nada",
+          "meaning": "El BMCU detectó un atasco y el LED del canal queda en rojo. Este bloqueo solo se quita sacando el filamento; el botón Continuar de la impresora no avisa al BMCU.",
+          "steps": ["Saca el filamento hasta que el slot aparezca vacío, vuelve a meterlo y continúa.", "O apaga y enciende.", "Actualiza a la v11 (detección rehecha)."]
+        }
+      }
+    },
+    {
+      "id": "red-led-not-detected",
+      "category": "hardware",
+      "severity": "blocking",
+      "codes": [],
+      "printers": ["all"],
+      "sources": [54, 86, 90, 106, 120, 137],
+      "text": {
+        "pt-BR": {
+          "title": "LED da placa vermelho e impressora não vê o AMS",
+          "meaning": "Calibração não terminada (o BMCU não conversa com a impressora durante a calibração), fios SigA/SigB invertidos (comum no cabo adaptador da P2S) ou placa danificada por ligação errada.",
+          "steps": ["Termine a calibração.", "Confira a pinagem do cabo com multímetro — as cores não são padronizadas.", "Inverta SigA e SigB se necessário.", "Só conecte com a impressora desligada da tomada."]
+        },
+        "en": {
+          "title": "Board LED red and printer doesn't see the AMS",
+          "meaning": "Calibration not finished (BMCU doesn't talk to the printer while calibrating), SigA/SigB swapped (common on the P2S adapter cable) or board damaged by wrong wiring.",
+          "steps": ["Finish calibration.", "Check the cable pinout with a multimeter — colors are not standard.", "Swap SigA and SigB if needed.", "Only connect with the printer unplugged."]
+        },
+        "es": {
+          "title": "LED de la placa en rojo y la impresora no ve el AMS",
+          "meaning": "Calibración sin terminar (el BMCU no se comunica con la impresora mientras calibra), SigA/SigB invertidos (común en el cable adaptador de la P2S) o placa dañada por un cableado incorrecto.",
+          "steps": ["Termina la calibración.", "Comprueba el pinout del cable con un multímetro; los colores no son estándar.", "Invierte SigA y SigB si hace falta.", "Conecta solo con la impresora desenchufada."]
+        }
+      }
+    },
+    {
+      "id": "flashing-fails",
+      "category": "flashing",
+      "severity": "blocking",
+      "codes": [],
+      "printers": [],
+      "sources": [45, 64, 74, 113, 116, 131],
+      "text": {
+        "pt-BR": {
+          "title": "Gravação do firmware falha",
+          "meaning": "Para em 40–60% (tempo esgotado) ou não entra no modo de gravação (\"enter bootloader first\").",
+          "steps": ["Use o BMCU Flasher 1.3 ou mais novo.", "Desative a velocidade alta (fast baud) ou reduza a velocidade.", "Segure o botão B (BOOT), conecte o USB segurando e solte depois de ~3 s.", "Grave com o BMCU desconectado da impressora e sem filamento."]
+        },
+        "en": {
+          "title": "Firmware flashing fails",
+          "meaning": "Stops at 40–60% (timeout) or won't enter flashing mode (\"enter bootloader first\").",
+          "steps": ["Use BMCU Flasher 1.3 or newer.", "Disable fast baud or lower the speed.", "Hold button B (BOOT), plug in USB while holding, release after ~3 s.", "Flash with BMCU disconnected from the printer and no filament."]
+        },
+        "es": {
+          "title": "Falla la grabación del firmware",
+          "meaning": "Se detiene en el 40–60 % (tiempo agotado) o no entra en modo de grabación (\"enter bootloader first\").",
+          "steps": ["Usa BMCU Flasher 1.3 o más reciente.", "Desactiva la velocidad alta (fast baud) o redúcela.", "Mantén el botón B (BOOT), conecta el USB sin soltarlo y suelta tras ~3 s.", "Graba con el BMCU desconectado de la impresora y sin filamento."]
+        }
+      }
+    },
+    {
+      "id": "v11-leds-off-when-loaded",
+      "category": "expected",
+      "severity": "info",
+      "codes": [],
+      "printers": ["all"],
+      "sources": [173],
+      "text": {
+        "pt-BR": {
+          "title": "v11: LEDs apagados com filamento",
+          "meaning": "Normal. Desde a v11 o LED do canal só acende quando o canal está vazio.",
+          "steps": ["Nada a fazer."]
+        },
+        "en": {
+          "title": "v11: LEDs off when loaded",
+          "meaning": "Normal. Since v11 the channel LED only lights when the channel is empty.",
+          "steps": ["Nothing to do."]
+        },
+        "es": {
+          "title": "v11: LEDs apagados con filamento",
+          "meaning": "Normal. Desde la v11 el LED del canal solo se enciende cuando el canal está vacío.",
+          "steps": ["Nada que hacer."]
+        }
+      }
+    }
+  ],
+  "not_applicable": {
+    "keywords": ["RFID", "heater", "humidity", "exhaust valve", "drying", "odometer", "AMS-HT", "AMS HT", "power adapter"],
+    "text": {
+      "pt-BR": "Este erro fala de uma peça que o BMCU não tem (RFID, aquecedor, sensor de umidade, válvulas). Provavelmente não vem do BMCU; reinicie a impressora e veja se volta.",
+      "en": "This error refers to a part BMCU doesn't have (RFID, heater, humidity sensor, valves). It is probably not coming from BMCU; restart the printer and see if it returns.",
+      "es": "Este error se refiere a una pieza que el BMCU no tiene (RFID, calentador, sensor de humedad, válvulas). Probablemente no viene del BMCU; reinicia la impresora y comprueba si vuelve."
+    }
+  },
+  "fallback": {
+    "07": {
+      "pt-BR": "Erro de AMS sem explicação específica para BMCU. Verifique a calibração do buffer, o caminho do PTFE e se o BMCU está na versão mais nova.",
+      "en": "AMS error without a BMCU-specific explanation. Check buffer calibration, the PTFE path, and that BMCU is on the latest version.",
+      "es": "Error de AMS sin explicación específica para BMCU. Revisa la calibración del buffer, el recorrido del PTFE y que el BMCU tenga la versión más reciente."
+    }
+  }
+}
