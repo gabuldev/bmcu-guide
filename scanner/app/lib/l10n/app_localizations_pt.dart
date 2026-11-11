@@ -244,7 +244,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get safetySteps =>
-      '1. Desligue a impressora.\n2. Desconecte o BMCU da impressora.\n3. Ligue o BMCU neste aparelho com um cabo USB OTG.\n\nLigar ou desligar o cabo com a impressora ligada pode queimar o BMCU ou a placa da impressora.';
+      '1. Tire o filamento de todos os canais, até passar o sensor do BMCU.\n2. Desligue a impressora.\n3. Desconecte o BMCU da impressora.\n4. Ligue o BMCU neste aparelho com um cabo USB OTG.\n\nLigar ou desligar o cabo com a impressora ligada pode queimar o BMCU ou a placa da impressora.';
 
   @override
   String get safetyConfirm =>
@@ -289,7 +289,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get flashDoneSteps =>
-      '1. Desconecte o BMCU deste aparelho e ligue-o na impressora desligada.\n2. Na primeira atualização por este app, a calibração dos buffers costuma ser apagada (o chip vinha protegido). Nas próximas, ela deve ser mantida.\n3. Se os LEDs ficarem vermelhos, os buffers precisam ser calibrados: abra o diagnóstico, ele mostra como.\n\nDepois, escaneie de novo para confirmar a versão.';
+      'Calibre os buffers agora, ainda neste cabo e antes de ligar na impressora. Vindo do V10.5 ou anterior, a calibração sempre precisa ser refeita, porque o V11 a salva em outro formato. Sem calibração, os LEDs ficam vermelhos, os motores não giram e a impressora pode não reconhecer o BMCU.\n\n1. Confira que não tem filamento em nenhum canal.\n2. Os LEDs piscam amarelo enquanto o BMCU lê o repouso. Não encoste nos buffers.\n3. Quando o LED do canal piscar azul, empurre o buffer até o fim por 1 s e solte.\n4. Quando piscar vermelho, puxe até o fim por 1 s e solte.\n5. Repita nos outros canais e deixe tudo solto. Duas piscadas verdes indicam que salvou.\n\nSe piscar vermelho duas vezes ou passar o tempo (30 s por passo), desconecte o cabo, espere 5 s e conecte de novo para recomeçar.\n\nDepois, com a impressora desligada, ligue o BMCU nela, ligue a impressora e escaneie de novo para confirmar a versão.';
 
   @override
   String get flashBack => 'Voltar';

@@ -22,7 +22,7 @@ e diagnostica o BMCU pela rede da impressora Bambu Lab. Não precisa de PC.
 
 | | Funciona | Não funciona |
 |---|---|---|
-| Placa | BMCU-370C (chip CH32V203) com porta USB-serial CH340 (aparece como `USB Serial 1a86:7523`) | Placas com USB nativo do chip |
+| Placa | BMCU-370C (chip CH32V203) com porta USB-serial CH340 (aparece como `USB Serial 1a86:7523`). Placas com CH343 ainda não foram testadas. | Placas com USB nativo do chip |
 | Firmware | Grava a V11 do projeto oficial; atualiza qualquer versão anterior | — |
 | Impressora | A1 e A1 mini (força padrão ou suave); P1S e X1 (força alta) | — |
 | Celular | Android com USB OTG | iPhone/iPad |
@@ -50,36 +50,51 @@ de novo.
 
 ## Atualizar o BMCU para a V11
 
-1. Abra o app e toque em **Atualizar BMCU**.
-2. Escolha a **mesma configuração que você usa hoje**: força de carregamento,
+1. Tire o filamento de todos os canais, até passar o sensor do BMCU. Você
+   vai calibrar logo depois de gravar.
+2. Abra o app e toque em **Atualizar BMCU**.
+3. Escolha a **mesma configuração que você usa hoje**: força de carregamento,
    autoload, LED na cor do filamento, número do AMS e distância de retração.
    Na dúvida, use *Padrão (A1)* para A1/A1 mini e *Forte (P1S/X1)* para P1S.
    Se a configuração não combinar com a impressora, o app avisa.
-3. **Desligue a impressora.** Só então desconecte o cabo do BMCU que vai para
+4. **Desligue a impressora.** Só então desconecte o cabo do BMCU que vai para
    a impressora.
-4. Ligue o BMCU no celular com o cabo OTG e aceite a permissão de USB.
-5. Marque a confirmação de segurança e toque em **Gravar**. **Não desconecte
+5. Ligue o BMCU no celular com o cabo OTG e aceite a permissão de USB.
+6. Marque a confirmação de segurança e toque em **Gravar**. **Não desconecte
    o cabo** até aparecer o ✅. A gravação leva menos de um minuto.
-6. Desconecte o BMCU do celular e ligue ele na impressora, **com a impressora
-   ainda desligada**. Depois ligue a impressora.
-7. Se os LEDs ficarem amarelos, está pronto. Se ficarem **vermelhos**, calibre
-   os buffers (veja abaixo).
+7. **Calibre os buffers ainda no cabo do celular** (veja abaixo). O BMCU
+   reinicia sozinho depois da gravação e já começa a calibração.
+8. Desconecte o BMCU do celular e ligue ele na impressora, **com a impressora
+   ainda desligada**. Depois ligue a impressora. Os LEDs amarelos indicam que
+   está pronto.
 
 ### Calibrar os buffers
 
-Na primeira atualização pelo app, a calibração **costuma ser apagada**. Isso
-acontece porque o gravador antigo deixava o chip protegido, e tirar a
-proteção apaga a memória inteira. Nas próximas atualizações a calibração
-deve ser mantida.
+**Quem vem do V10.5 ou anterior sempre precisa calibrar de novo.** O V11 salva
+a calibração em outro formato e não aproveita a antiga, seja qual for o
+gravador usado. Sem calibração, os LEDs dos canais ficam vermelhos, os motores
+não giram e a impressora pode não reconhecer o BMCU. Isso acontece porque o
+BMCU tenta calibrar ao ligar e só depois começa a conversar com a impressora.
 
-1. Tire o filamento de todos os canais, até passar o sensor do BMCU.
-2. Ligue a impressora sem encostar nos buffers. Os LEDs piscam amarelo
-   enquanto o BMCU lê a posição de repouso.
+O mais fácil é calibrar com o BMCU ainda ligado no celular, logo depois da
+gravação, sem a impressora. O mantenedor do firmware também recomenda
+calibrar com a impressora desconectada.
+
+1. Tire o filamento de todos os canais, até passar o sensor do BMCU. Confira
+   se não ficou um pedaço quebrado lá dentro.
+2. Ligue o BMCU (no cabo do celular ou, se preferir, na impressora) sem
+   encostar nos buffers. Os LEDs piscam amarelo enquanto o BMCU lê a posição
+   de repouso.
 3. Quando o LED do canal piscar **azul**, **empurre** o buffer até o fim por
    1 s e solte.
 4. Quando piscar **vermelho**, **puxe** até o fim por 1 s e solte.
-5. Repita nos outros canais. Duas piscadas verdes indicam que a calibração
-   foi salva.
+5. Repita nos outros canais e deixe tudo solto. Duas piscadas verdes indicam
+   que a calibração foi salva.
+
+Se piscar vermelho duas vezes, ainda tem filamento ou um buffer mexeu. Se
+passar o tempo (30 s por passo), a calibração também para. Nos dois casos,
+desconecte o cabo, espere 5 s e conecte de novo para recomeçar. Com o BMCU
+na impressora, desligue e ligue a impressora.
 
 Faça na ordem certa: azul é empurrar e vermelho é puxar. Se fizer ao
 contrário, o motor não percebe a pressão e continua empurrando o filamento
@@ -109,7 +124,8 @@ calibração.
 | A gravação parou no meio | Toque em **Tentar de novo** sem desconectar. Se não for, desconecte, conecte e grave outra vez. |
 | O BMCU não voltou ao modo de gravação | Desconecte o cabo, espere 5 s, conecte e tente de novo. |
 | Falha ao baixar o firmware | Confira a internet do celular e tente de novo. |
-| LEDs vermelhos depois de atualizar | Calibre os buffers (veja acima). |
+| LEDs vermelhos depois de atualizar | Calibre os buffers (veja acima). Do V10.5 para o V11 isso sempre é necessário. |
+| Diagnóstico diz "Nenhum BMCU encontrado nesta impressora" depois de atualizar | A causa mais provável é falta de calibração: sem ela, o BMCU só começa a conversar com a impressora depois que a calibração termina ou passa do tempo. Calibre (veja acima) e reinicie a impressora. Confira também se a impressora está no modo **AMS**, não AMS Lite. |
 | Motor continua empurrando o filamento na extrusora | A calibração foi feita ao contrário. Tire o filamento de todos os canais e segure um buffer na posição em que o LED fica azul por 5 s (com a calibração invertida, é puxando). O BMCU apaga a calibração e reinicia; calibre de novo. |
 | Impressora não aparece no diagnóstico | Celular e impressora precisam estar na mesma rede, com LAN Only e Developer Mode ligados. Reinicie a impressora. |
 
