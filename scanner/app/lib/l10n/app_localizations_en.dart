@@ -244,7 +244,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get safetySteps =>
-      '1. Turn the printer off.\n2. Disconnect the BMCU from the printer.\n3. Plug the BMCU into this device with a USB OTG cable.\n\nPlugging or unplugging with the printer on can damage the BMCU or the printer mainboard.';
+      '1. Remove the filament from every channel, past the BMCU sensor.\n2. Turn the printer off.\n3. Disconnect the BMCU from the printer.\n4. Plug the BMCU into this device with a USB OTG cable.\n\nPlugging or unplugging with the printer on can damage the BMCU or the printer mainboard.';
 
   @override
   String get safetyConfirm =>
@@ -289,7 +289,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get flashDoneSteps =>
-      '1. Unplug the BMCU from this device and connect it to the printer while it is off.\n2. The first update with this app usually erases the buffer calibration (the chip came protected). Later updates should keep it.\n3. If the LEDs stay red, the buffers need calibrating: open the diagnosis, it shows how.\n\nThen scan again to confirm the version.';
+      'Calibrate the buffers now, still on this cable and before connecting to the printer. Coming from V10.5 or older, calibration always has to be redone, because V11 stores it in a different format. Without calibration the LEDs stay red, the motors do not turn and the printer may not recognize the BMCU.\n\n1. Make sure no channel has filament.\n2. The LEDs blink yellow while the BMCU reads the rest position. Do not touch the buffers.\n3. When a channel LED blinks blue, push its buffer all the way in for 1 s and release.\n4. When it blinks red, pull it all the way out for 1 s and release.\n5. Repeat on the other channels and leave everything free. Two green blinks mean it was saved.\n\nIf it blinks red twice or a step times out (30 s each), unplug the cable, wait 5 s and plug it back in to start over.\n\nThen, with the printer off, connect the BMCU to it, turn the printer on and scan again to confirm the version.';
 
   @override
   String get flashBack => 'Back';

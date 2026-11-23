@@ -244,7 +244,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get safetySteps =>
-      '1. Apaga la impresora.\n2. Desconecta el BMCU de la impresora.\n3. Conecta el BMCU a este dispositivo con un cable USB OTG.\n\nConectar o desconectar con la impresora encendida puede dañar el BMCU o la placa de la impresora.';
+      '1. Saca el filamento de todos los canales, hasta pasar el sensor del BMCU.\n2. Apaga la impresora.\n3. Desconecta el BMCU de la impresora.\n4. Conecta el BMCU a este dispositivo con un cable USB OTG.\n\nConectar o desconectar con la impresora encendida puede dañar el BMCU o la placa de la impresora.';
 
   @override
   String get safetyConfirm =>
@@ -290,7 +290,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get flashDoneSteps =>
-      '1. Desconecta el BMCU de este dispositivo y conéctalo a la impresora apagada.\n2. La primera actualización con esta app suele borrar la calibración de los buffers (el chip venía protegido). Las siguientes deberían mantenerla.\n3. Si los LED quedan rojos, hay que calibrar los buffers: abre el diagnóstico, muestra cómo.\n\nDespués, escanea de nuevo para confirmar la versión.';
+      'Calibra los buffers ahora, todavía en este cable y antes de conectarlo a la impresora. Viniendo de V10.5 o anterior, la calibración siempre hay que rehacerla, porque V11 la guarda en otro formato. Sin calibración, los LED quedan rojos, los motores no giran y la impresora puede no reconocer el BMCU.\n\n1. Comprueba que ningún canal tenga filamento.\n2. Los LED parpadean en amarillo mientras el BMCU lee el reposo. No toques los buffers.\n3. Cuando el LED del canal parpadee en azul, empuja el buffer hasta el fondo 1 s y suelta.\n4. Cuando parpadee en rojo, tira hasta el fondo 1 s y suelta.\n5. Repite en los otros canales y deja todo suelto. Dos parpadeos verdes indican que se guardó.\n\nSi parpadea en rojo dos veces o se acaba el tiempo (30 s por paso), desconecta el cable, espera 5 s y conéctalo de nuevo para empezar otra vez.\n\nDespués, con la impresora apagada, conecta el BMCU a ella, enciende la impresora y escanea de nuevo para confirmar la versión.';
 
   @override
   String get flashBack => 'Volver';
